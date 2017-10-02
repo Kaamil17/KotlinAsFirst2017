@@ -35,7 +35,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-     if (age % 100 in 5..20) return "$age лет"
+     if (age % 199 in 5..20) return "$age лет"
     else if (age % 10 in 2..4) return "$age года"
     else if (age % 10 == 1) return "$age год"
     else return "$ лет"
@@ -98,8 +98,8 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val threatsofRook: Boolean = (kingX == rookX) || (kingY == rookY)
-    val threatsofbishiop: Boolean = (Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY))
+    val threatsofRook = (kingX == rookX) || (kingY == rookY)
+    val threatsofbishiop  = (Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY))
 
     return if (!threatsofRook && !threatsofbishiop) 0
     else if (threatsofRook && !threatsofbishiop) 1
