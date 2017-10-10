@@ -35,7 +35,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-     if (age % 199 in 5..20) return "$age лет"
+    if (age % 199 in 5..20) return "$age лет"
     else if (age % 10 in 2..4) return "$age года"
     else if (age % 10 == 1) return "$age год"
     else return "$age лет"
@@ -75,18 +75,20 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
 
-    val threatsfromrook: Boolean = (kingX == rookX1) || (kingY == rookY1)
-    val threatsfromrook2: Boolean = (kingX == rookX2) || (kingY == rookY2)
-    return if (!threatsfromrook && !threatsfromrook2) 0
-    else if (threatsfromrook && !threatsfromrook2) 1
-    else if (!threatsfromrook && threatsfromrook2) 2
+    val threatsfromRook: Boolean = (kingX == rookX1) || (kingY == rookY1)
+    val threatsfromRook1: Boolean = (kingX == rookX2) || (kingY == rookY2)
+
+    return if (!threatsfromRook && !threatsfromRook1) 0
+    else if (threatsfromRook &&!threatsfromRook1) 1
+    else if (!threatsfromRook && threatsfromRook1) 2
     else 3
 }
-
-
-
 /**
- * Простая
+ * AND HERE THERE IS A PROBLEME TO SOLVE.
+ *
+ */
+
+/*** Простая
  *
  * На шахматной доске стоят черный король и белые ладья и слон
  * (ладья бьет по горизонтали и вертикали, слон — по диагоналям).
@@ -99,7 +101,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val threatsofRook = (kingX == rookX) || (kingY == rookY)
-    val threatsofbishiop  = (Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY))
+    val threatsofbishiop = (Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY))
 
     return if (!threatsofRook && !threatsofbishiop) 0
     else if (threatsofRook && !threatsofbishiop) 1
@@ -118,12 +120,14 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
 
+    return if (a + b < c || a + c < b || b + c < a) -1
+    else if (a * a  == b * b + c*c || b * b == a * a + c * c || c * c == a * a + b * b) 1
+    else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > b * b + a * a) 2
+    else 0
 
-       return if ( a + b <c || a + c < b || b +c < a ) -1
-     else if  ( a*a == b*b + c*c || b*b == a*a + c*c || c*c == a*a + b*b )   1
-     else if ( a*a > b*b + c*c || b*b > a*a + c*c || c*c > b*b + a*a )  2
-     else  0
-
+    /**
+     * I HAVE A PROBLEME HERE,
+     */
 }
 
 /**
@@ -135,10 +139,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (b>=c && a<=c && b<=d) return b-c
-    else if (a<=d && c<=a && b>=d) return d-a
-    else if(a>=c && b<=d) return b-a
-    else if (a<=c && b>=d) return d-c
+    if (b >= c && a <= c && b <= d) return b - c
+    else if (a <= d && c <= a && b >= d) return d - a
+    else if (a >= c && b <= d) return b - a
+    else if (a <= c && b >= d) return d - c
     else return -1
 
 
