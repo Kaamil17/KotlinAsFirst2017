@@ -75,12 +75,12 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
 
-    val threatsfromRook: Boolean = (kingX == rookX1) || (kingY == rookY1)
-    val threatsfromRook1: Boolean = (kingX == rookX2) || (kingY == rookY2)
+    val threatsFromRook = (kingX == rookX1) || (kingY == rookY1)
+    val threatsFromRook1 = (kingX == rookX2) || (kingY == rookY2)
 
-    return if (!threatsfromRook && !threatsfromRook1) 0
-    else if (threatsfromRook &&!threatsfromRook1) 1
-    else if (!threatsfromRook && threatsfromRook1) 2
+    return if (!threatsFromRook && !threatsFromRook1) 0
+    else if (threatsFromRook &&!threatsFromRook1) 1
+    else if (!threatsFromRook && threatsFromRook1) 2
     else 3
 }
 /**
@@ -119,15 +119,15 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-
+     val aSqr = a*a
+    val bSqr = b*b
+    val cSqr = c*c
     return if (a + b < c || a + c < b || b + c < a) -1
-    else if (a * a  == b * b + c*c || b * b == a * a + c * c || c * c == a * a + b * b) 1
-    else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > b * b + a * a) 2
+    else if (aSqr  == bSqr + cSqr || bSqr == aSqr + cSqr || cSqr == aSqr + bSqr) 1
+    else if (aSqr > bSqr + cSqr || bSqr > aSqr + cSqr || cSqr > bSqr + aSqr) 2
     else 0
 
-    /**
-     * I HAVE A PROBLEME HERE,
-     */
+
 }
 
 /**
