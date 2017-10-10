@@ -199,28 +199,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double {
-    var s: Double
-    var a: Double = x
-    var i = 1
-    var s1 = 1.0
-    while ((a > 0) && (a >= -2 * PI)) {
-        a = a + 2 * PI
-    }
-    while ((a < 0) && (a <= -2 * PI)) {
-        a = a * 2 * PI
-    }
-    s = a
-    val a1 = a
-    if (a == 0.0) return 0.0
-    while (abs(s / s1) > abs(eps)) {
-        s = s * a1 * a1 * (-1)
-        s1 = s1 * (i + 1.0) * (i + 2.0)
-        a = a + s / s1
-        i = i + 2
-    }
-    return a
-}
+fun sin(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -229,29 +208,7 @@ fun sin(x: Double, eps: Double): Double {
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double {
-    var s: Double = 1.0
-    var a: Double = 1.0
-    var i = 0.0
-    var S1 = 1.0
-    var a1: Double
-    if (x >= 0) {
-        a1 = x
-    } else a1 = -x
-    a1 = a1 - 2 * PI
-
-    s = a
-    if (x == 0.0) {
-        return 1.0
-    }
-    while (abs(s / S1) >= abs(eps)) {
-        S1 = S1 * (i + 1.0) * (i + 2.0)
-        s = s * a1 * a1 * (-1.0)
-        a = a + s / S1
-        i = i + 2.0
-    }
-    return a
-}
+fun cos(x: Double, eps: Double): Double =TODO()
 
 /**
  * Средняя
