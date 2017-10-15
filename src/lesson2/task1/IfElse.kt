@@ -39,8 +39,6 @@ fun ageDescription(age: Int): String {
     else if (age % 10 in 2..4) return "$age года"
     else if (age % 10 == 1) return "$age год"
     else return "$age лет"
-
-
 }
 
 

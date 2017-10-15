@@ -21,11 +21,6 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  */
 fun isNumberHappy(number: Int): Boolean =
         (number % 10 + number / 10 % 10) == (number / 100 % 10 + number / 1000 % 10)
-
-
-
-
-
 /**
  * Простая
  *
@@ -57,10 +52,17 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Считать, что совпадения длин сторон достаточно для прохождения кирпича, т.е., например,
  * кирпич 4 х 4 х 4 пройдёт через отверсти   е 4 х 4.
  * Вернуть true, если кирпич пройдёт
- * 
+ *
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val isPasses =
-            a <= r && b <= s || b <= r && a <= s || c <= s && a <= r || a <= s && c <= r || b <= r && c <= s || c <= r && b <= s
-    return isPasses
+    if (a <= r) {
+        if ((b <= s) || (c <= s)) return true
+    }
+    if (c <= r) {
+        if ((a <= s) || (b <= s)) return true
+    }
+    if (b <= r) {
+        if ((a <= s) || (c <= s)) return true
+    }
+    return false
 }
