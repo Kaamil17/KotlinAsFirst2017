@@ -1,7 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
+import com.intellij.ui.plaf.beg.BegResources.m
 import lesson1.task1.discriminant
+import java.lang.Math.pow
 
 /**
  * Пример
@@ -106,14 +109,28 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var x = 0.0
+    for (element in v) {
+        x += pow(element, 2.0)
+    }
+    val t = Math.sqrt(x * 1.0)
+    return t
+}
+
 
 /**
  * Простая
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    if (list.isEmpty()) return 0.0
+    else {
+        val t = list.sum() / list.size * 1.0
+        return t
+    }
+}
 
 /**
  * Средняя
@@ -123,7 +140,19 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    if (list.isEmpty()) return list
+    else {
+        var k = 0
+        val x = list.sum() / list.size
+        while (k in 0..list.size - 1) {
+            list[k] -= x
+            k++
+        }
+        return list
+    }
+}
+
 
 /**
  * Средняя
@@ -132,7 +161,13 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var m = 0.0
+    for (i in 0..a.size - 1) {
+        m = a[i] * b[i]
+    }
+    return m
+}
 
 /**
  * Средняя
@@ -142,7 +177,15 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    var x1 = 0.0
+    var p1 = 0.0
+    for (element in p) {
+        p1 = (p1 + element * pow(x, x1))
+        x1++
+    }
+    return p1 * 1.0
+}
 
 /**
  * Средняя
@@ -154,7 +197,16 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    var t = 0.0
+    var i = 0
+    while (i in 0..list.size - 1) {
+        t += list[i]
+        list[i] = t
+        i++
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -163,7 +215,21 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var t = 2
+    val x = mutableListOf<Int>()
+    var n1 = n
+    while (t <= n1) {
+        if (n1 % t == 0) {
+            x.add(t)
+            n1 /= t
+            t--
+        }
+        t++
+    }
+    return x
+
+}
 
 /**
  * Сложная
@@ -171,7 +237,27 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var t = 2
+    val x = mutableListOf<Int>()
+    var n1 = n
+    while (t <= n1) {
+        if (n1 % t == 0) {
+            x.add(t)
+            n1 /= t
+            t--
+        }
+        t++
+    }
+    var m = ""
+    m += x[0]
+    for (i in 1..x.size - 1) {
+        m += "*"
+        m += x[i]
+    }
+    return m
+}
+
 
 /**
  * Средняя
@@ -180,7 +266,24 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val x = mutableListOf<Int>()
+    var b = n
+    if (n == 0) return listOf(0)
+    while (b > 0) {
+        x.add(b % base)
+        b /= base
+    }
+
+    val s = mutableListOf<Int>()
+    var t = 1
+    while (t <= x.size) {
+        s.add(x[x.size - t])
+        t++
+    }
+    return s
+}
+
 
 /**
  * Сложная
@@ -229,4 +332,72 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+
+fun russian(n: Int): String {
+    val arraylistofUnits = arrayListOf(
+            "один",
+            "два",
+            "три",
+            "четыре",
+            "пять",
+            "шесть",
+            "семь",
+            "восемь",
+            "девять",
+            "десять",
+            "одиннадцать",
+            "двенадцать",
+            "тринадцать",
+            "четырнадцать",
+            " пятнадцать",
+            "шестнадцать",
+            "семнадцать",
+            "восемнадцать",
+            "девятнадцать"
+    )
+    val arraylistofTens = arrayListOf(
+            "",
+            "",
+            "двадцвть",
+            "тридцать",
+            "сорок",
+            " пятьдесят",
+            "шестьдесят",
+            "семьдесят",
+            "восемьдесят",
+            "девяносто",
+            "сто"
+    )
+    val arraylistofHundreds = arrayListOf(
+            "двести",
+            "триста",
+            "четыреста",
+            "пятьсот",
+            "шестьсот",
+            "семьсот",
+            "восемьсот",
+            "девятсот",
+            "тысяча"
+    )
+
+    if (n < 1000) return arraylistofHundreds[n / 100] + "триста" +(if ((n % 100 > 0)) " " + (n % 100) else "")
+    if (n < 100) return arraylistofUnits[n / 10] + "семьдесят " + (if ((n % 10 > 0))  + (n % 10) else "")
+    if (n < 20) return arraylistofTens[n]
+    return "n"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

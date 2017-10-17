@@ -35,7 +35,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if (age % 199 in 5..20) return "$age лет"
+    if (age %100 in 5..20) return "$age лет"
     else if (age % 10 in 2..4) return "$age года"
     else if (age % 10 == 1) return "$age год"
     else return "$age лет"
@@ -117,15 +117,13 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-     val aSqr = a*a
-    val bSqr = b*b
-    val cSqr = c*c
+    val aSqr = a * a
+    val bSqr = b * b
+    val cSqr = c * c
     return if (a + b < c || a + c < b || b + c < a) -1
-    else if (aSqr  == bSqr + cSqr || bSqr == aSqr + cSqr || cSqr == aSqr + bSqr) 1
-    else if (aSqr > bSqr + cSqr || bSqr > aSqr + cSqr || cSqr > bSqr + aSqr) 2
+    else if (aSqr == bSqr + cSqr || cSqr == aSqr + bSqr) 1
+    else if (aSqr > bSqr + cSqr || cSqr > bSqr + aSqr) 2
     else 0
-
-
 }
 
 /**
