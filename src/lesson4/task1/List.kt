@@ -2,7 +2,7 @@
 
 package lesson4.task1
 
-import com.intellij.ui.plaf.beg.BegResources.m
+
 import lesson1.task1.discriminant
 import java.lang.Math.pow
 
