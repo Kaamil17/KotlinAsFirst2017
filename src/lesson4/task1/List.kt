@@ -161,13 +161,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double {
-    var m = 0.0
-    for (i in 0..a.size - 1) {
-        m = a[i] * b[i]
-    }
-    return m
-}
+fun times(a: List<Double>, b: List<Double>): Double = TODO()
 
 /**
  * Средняя
@@ -333,58 +327,7 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 
-fun russian(n: Int): String {
-    val arraylistofUnits = arrayListOf(
-            "один",
-            "два",
-            "три",
-            "четыре",
-            "пять",
-            "шесть",
-            "семь",
-            "восемь",
-            "девять",
-            "десять",
-            "одиннадцать",
-            "двенадцать",
-            "тринадцать",
-            "четырнадцать",
-            " пятнадцать",
-            "шестнадцать",
-            "семнадцать",
-            "восемнадцать",
-            "девятнадцать"
-    )
-    val arraylistofTens = arrayListOf(
-            "",
-            "",
-            "двадцвть",
-            "тридцать",
-            "сорок",
-            " пятьдесят",
-            "шестьдесят",
-            "семьдесят",
-            "восемьдесят",
-            "девяносто",
-            "сто"
-    )
-    val arraylistofHundreds = arrayListOf(
-            "двести",
-            "триста",
-            "четыреста",
-            "пятьсот",
-            "шестьсот",
-            "семьсот",
-            "восемьсот",
-            "девятсот",
-            "тысяча"
-    )
-
-    if (n < 1000) return arraylistofHundreds[n / 100] + "триста" +(if ((n % 100 > 0)) " " + (n % 100) else "")
-    if (n < 100) return arraylistofUnits[n / 10] + "семьдесят " + (if ((n % 10 > 0))  + (n % 10) else "")
-    if (n < 20) return arraylistofTens[n]
-    return "n"
-}
+fun russian(n: Int): String = TODO()
 
 
 
