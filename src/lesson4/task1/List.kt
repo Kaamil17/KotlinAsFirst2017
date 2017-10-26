@@ -5,6 +5,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import java.lang.Math.pow
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -114,7 +115,7 @@ fun abs(v: List<Double>): Double {
     for (element in v) {
         x += pow(element, 2.0)
     }
-    val t = Math.sqrt(x * 1.0)
+    val t = sqrt(x * 1.0)
     return t
 }
 
@@ -127,7 +128,7 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     if (list.isEmpty()) return 0.0
     else {
-        val t = list.sum() / list.size * 1.0
+        val t = list.sum() / list.size
         return t
     }
 }
@@ -145,7 +146,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
     else {
         var k = 0
         val x = list.sum() / list.size
-        while (k in 0..list.size - 1) {
+        while (k in 0 until list.size - 1) {
             list[k] -= x
             k++
         }
@@ -178,7 +179,7 @@ fun polynom(p: List<Double>, x: Double): Double {
         p1 = (p1 + element * pow(x, x1))
         x1++
     }
-    return p1 * 1.0
+    return p1
 }
 
 /**
@@ -194,7 +195,7 @@ fun polynom(p: List<Double>, x: Double): Double {
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     var t = 0.0
     var i = 0
-    while (i in 0..list.size - 1) {
+    while (i in 0 until list.size - 1) {
         t += list[i]
         list[i] = t
         i++
@@ -231,27 +232,7 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String {
-    var t = 2
-    val x = mutableListOf<Int>()
-    var n1 = n
-    while (t <= n1) {
-        if (n1 % t == 0) {
-            x.add(t)
-            n1 /= t
-            t--
-        }
-        t++
-    }
-    var m = ""
-    m += x[0]
-    for (i in 1..x.size - 1) {
-        m += "*"
-        m += x[i]
-    }
-    return m
-}
-
+fun factorizeToString(n: Int): String = factorize(n).joinToString { "*" }
 
 /**
  * Средняя

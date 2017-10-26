@@ -86,15 +86,15 @@ fun digitNumber(n: Int): Int {
  */
 fun fib(n: Int): Int {
     var n1 = 2
-    var z1 = 1
-    var z2 = 1
+    var fib1 = 1
+    var fib2 = 1
     var x = 1
     if (n == 1 || n == 2) {
-        return z2
+        return fib2
     } else while (n1 != n) {
-        x = z1 + z2
-        z1 = z2
-        z2 = x
+        x = fib1 + fib2
+        fib1 = fib2
+        fib2 = x
         n1++
     }
     return x
@@ -143,16 +143,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var x = n - 1
-    var t = 1
-    while (t != 0) {
-        t = n % x
-        x--
-    }
-    x++
-    return x
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -185,7 +176,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in 0..m)
+    for (i in 0..n)
         if (sqr(i.toDouble()) <= n)
             if (sqr(i.toDouble()) >= m) return true
     return false
@@ -208,7 +199,7 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double =TODO()
+fun cos(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -217,20 +208,13 @@ fun cos(x: Double, eps: Double): Double =TODO()
  * Не использовать строки при решении задачи.
  */
 fun revert(n: Int): Int {
-    var count = 1
-    var n1 = n
-    while (n1 >= 10) {
-        count++
-        n1 = n1 / 10
-    }
-    var t = 0
-    var nn = 0
-    while (count != 0) {
-        nn = n / pow(10.0, (count * 1.0 - 1)).toInt() % 10 * pow(10.0, t * 1.0).toInt() + nn
-        t++
-        count--
-    }
-    return nn
+    var revertnum = 0
+    var auxnum = n
+    do {
+        revertnum = revertnum * 10 + auxnum % 10
+        auxnum /= 10
+    } while (auxnum > 0)
+    return revertnum
 }
 
 
@@ -241,22 +225,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean {
-    var result: Boolean = true
-
-    var numberAux = n
-    var reversedNumber = 0
-
-    while (numberAux > 0) {
-
-        val rightdigit = numberAux % 10
-        reversedNumber = reversedNumber * 10 + rightdigit
-        numberAux /= 10
-    }
-    result = n == reversedNumber
-    return result
-}
-
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя
@@ -324,7 +293,7 @@ fun fibSequenceDigit(n: Int): Int {
     var l = n
     var count = 1
     while (l > 0) {
-        m = ((Math.sqrt(5.0) / 5) * (pow((1 + Math.sqrt(5.0)) / 2, x) - pow((1 - Math.sqrt(5.0)) / 2, x))).toInt()
+        m = ((sqrt(5.0) / 5) * (pow((1 + sqrt(5.0)) / 2, x) - pow((1 - sqrt(5.0)) / 2, x))).toInt()
         t = m
         while (t >= 10) {
             count++
