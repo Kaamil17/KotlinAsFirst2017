@@ -121,8 +121,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val bSqr = b * b
     val cSqr = c * c
     return if (a + b < c || a + c < b || b + c < a) -1
-    else if (aSqr == bSqr + cSqr || cSqr == aSqr + bSqr) 1
-    else if (aSqr > bSqr + cSqr || cSqr > bSqr + aSqr) 2
+    else if (aSqr == bSqr + cSqr || cSqr == aSqr + bSqr || bSqr == cSqr + aSqr) 1
+    else if (aSqr > bSqr + cSqr || cSqr > bSqr + aSqr || bSqr > aSqr + cSqr) 2
     else 0
 }
 

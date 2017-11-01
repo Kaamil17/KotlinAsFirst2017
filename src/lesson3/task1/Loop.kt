@@ -81,19 +81,14 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var n1 = 2
     var fib1 = 1
     var fib2 = 1
-    var x = 1
-    if (n == 1 || n == 2) {
-        return fib2
-    } else for (i in 2..n) {
-        x = fib1 + fib2
+    for (i in 2..n) {
+        val x = fib1 + fib2
         fib1 = fib2
         fib2 = x
-        n1++
     }
-    return x
+    return fib1
 }
 
 
@@ -114,8 +109,7 @@ fun lcm(m: Int, n: Int): Int {
             n1 -= m1
         }
     }
-    val k = m * n / n1
-    return k
+    return m * n / n1
 }
 
 /**
@@ -231,13 +225,12 @@ fun hasDifferentDigits(n: Int): Boolean {
     val number1 = number % 10
     if (number < 10)
         return false
-    number /= 10
+    //number /= 10
     do {
+        number /= 10
         if (number1 != number % 10)
             return true
-        number /= 10
-
-    } while(number > 9)
+    } while (number > 9)
     return false
 }
 
@@ -251,23 +244,13 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun squareSequenceDigit(n: Int): Int {
     var x = 1
     var m = 1
-    var t: Int
     var l = n
-    var count = 1
     while (l > 0) {
         m = x * x
-        t = m
-        while (t >= 10) {
-            count++
-            t /= 10
-        }
-        l -= count
-        count = 1
+        l -= digitNumber(m)
         x++
     }
-    l = abs(l)
-    m = m / pow(10.0, l * 1.0).toInt() % 10
-    return m
+    return m / pow(10.0, abs(l) * 1.0).toInt() % 10
 }
 
 
@@ -280,25 +263,15 @@ fun squareSequenceDigit(n: Int): Int {
  */
 
 fun fibSequenceDigit(n: Int): Int {
-    var x = 1.0
+    var x = 1
     var m = 1
-    var t: Int
     var l = n
-    var count = 1
     while (l > 0) {
-        m = ((sqrt(5.0) / 5) * (pow((1 + sqrt(5.0)) / 2, x) - pow((1 - sqrt(5.0)) / 2, x))).toInt()
-        t = m
-        while (t >= 10) {
-            count++
-            t /= 10
-        }
-        l -= count
-        count = 1
+        m = fib(x)
+        l -= digitNumber(m)
         x++
     }
-    l = abs(l)
-    m = m / pow(10.0, l * 1.0).toInt() % 10
-    return m
+    return m / pow(10.0, abs(l) * 1.0).toInt() % 10
 }
 
 

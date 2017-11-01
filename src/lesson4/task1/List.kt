@@ -4,6 +4,7 @@ package lesson4.task1
 
 
 import lesson1.task1.discriminant
+import lesson3.task1.minDivisor
 import java.lang.Math.pow
 import java.lang.Math.sqrt
 
@@ -190,7 +191,7 @@ fun polynom(p: List<Double>, x: Double): Double {
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     for (i in 1 until list.size)
-        list[i] += list[i-1]
+        list[i] += list[i - 1]
     return list
 }
 
@@ -202,19 +203,14 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var t = 2
-    val x = mutableListOf<Int>()
+    var divisors = mutableListOf<Int>()
     var n1 = n
-    while (t <= n1) {
-        if (n1 % t == 0) {
-            x.add(t)
-            n1 /= t
-            t--
-        }
-        t++
+    while (n1 != 1) {
+        val div = minDivisor(n1)
+        divisors.add(div)
+        n1 /= div
     }
-    return x
-
+    return divisors
 }
 
 /**
