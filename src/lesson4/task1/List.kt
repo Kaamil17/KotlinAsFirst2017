@@ -143,11 +143,8 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    if (list.isEmpty()) return list
-    else {
-        val mean = mean(list)
-        for (i in 0 until list.size) list[i] -= mean
-    }
+    val mean = mean(list)
+    for (i in 0 until list.size) list[i] -= mean
     return list
 }
 
@@ -219,7 +216,7 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString { "" }
+fun factorizeToString(n: Int): String = factorize(n).joinToString ("*")
 
 /**
  * Средняя
