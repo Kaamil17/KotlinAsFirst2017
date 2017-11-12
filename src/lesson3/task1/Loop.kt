@@ -118,7 +118,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..sqrt(n.toDouble()).toInt())
+    for (i in 2..n.toShort())
         if (n % i == 0)
             return i
     return n
@@ -170,7 +170,6 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
                 if (sqr(i.toDouble()) >= m) return true
         return false
     }
-
 
     /**
      * Средняя
@@ -227,7 +226,6 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
         val number1 = number % 10
         if (number < 10)
             return false
-        //number /= 10
         do {
             number /= 10
             if (number1 != number % 10)
@@ -244,15 +242,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
      * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
      */
     fun squareSequenceDigit(n: Int): Int {
-        var x = 1
-        var m = 1
+        var Xara = 1
+        var Magic = 1
         var l = n
         while (l > 0) {
-            m = x * x
-            l -= digitNumber(m)
-            x++
+            Magic = Xara * Xara
+            l -= digitNumber(Magic)
+            Xara++
         }
-        return m / pow(10.0, abs(l) * 1.0).toInt() % 10
+        return Magic / pow(10.0, abs(l) * 1.0).toInt() % 10
     }
 
 
@@ -265,15 +263,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
      */
 
     fun fibSequenceDigit(n: Int): Int {
-        var x = 1
-        var m = 1
+        var First = 1
+        var second = 1
         var l = n
         while (l > 0) {
-            m = fib(x)
-            l -= digitNumber(m)
-            x++
+            second = fib(First)
+            l -= digitNumber(second)
+            First++
         }
-        return m / pow(10.0, abs(l) * 1.0).toInt() % 10
+        return second / pow(10.0, abs(l) * 1.0).toInt() % 10
     }
 
 

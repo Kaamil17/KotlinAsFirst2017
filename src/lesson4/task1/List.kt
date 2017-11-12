@@ -116,8 +116,7 @@ fun abs(v: List<Double>): Double {
     for (element in v) {
         x += pow(element, 2.0)
     }
-    val t = sqrt(x * 1.0)
-    return t
+    return  sqrt(x.toDouble())
 }
 
 
@@ -226,18 +225,18 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString ("*")
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    val x = mutableListOf<Int>()
-    var b = n
+    val num = mutableListOf<Int>()
+    var remainNum = n
     if (n == 0) return listOf(0)
-    while (b > 0) {
-        x.add(b % base)
-        b /= base
+    while (remainNum > 0) {
+        num.add(remainNum % base)
+        remainNum /= base
     }
 
     val s = mutableListOf<Int>()
     var t = 1
-    while (t <= x.size) {
-        s.add(x[x.size - t])
+    while (t <= num.size) {
+        s.add(num[num.size - t])
         t++
     }
     return s
