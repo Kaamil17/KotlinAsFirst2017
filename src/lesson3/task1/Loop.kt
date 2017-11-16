@@ -104,10 +104,8 @@ fun lcm(m: Int, n: Int): Int {
     while (m1 != n1) {
         if (m1 > n1) {
             m1 -= n1
-        }
-        if (m1 < n1) {
+        } else
             n1 -= m1
-        }
     }
     return m * n / n1
 }
@@ -125,9 +123,9 @@ fun minDivisor(n: Int): Int {
 }
 
 /**
- ITS MY PRIVATE FUNCTION
+ITS MY PRIVATE FUNCTION
  */
-fun gcd(m : Int , n : Int):Int {
+fun gcd(m: Int, n: Int): Int {
     var n1 = n
     var m1 = m
     while (n1 != m1) {
@@ -136,7 +134,7 @@ fun gcd(m : Int , n : Int):Int {
         else
             m1 -= n1
     }
-   return m1
+    return m1
 }
 
 /**
@@ -155,124 +153,122 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  */
 fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
 
+/**
+ * Простая
+ *
+ * Для заданных чисел m и n, m <= n, определить, имеется ли хотя бы один точный квадрат между m и n,
+ * то есть, существует ли такое целое k, что m <= k*k <= n.
+ * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
+ */
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    for (i in 0..round(n.toDouble()))
+        if (sqr(i.toDouble()) <= n)
+            if (sqr(i.toDouble()) >= m) return true
+    return false
+}
+
+/**
+ * Средняя
+ *
+ * Для заданного x рассчитать с заданной точностью eps
+ * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
+ * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
+ */
+fun sin(x: Double, eps: Double): Double = TODO()
+
+/**
+ * Средняя
+ *
+ * Для заданного x рассчитать с заданной точностью eps
+ * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
+ * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
+ */
+fun cos(x: Double, eps: Double): Double = TODO()
+
+/**
+ * Средняя
+ *
+ * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
+ * Не использовать строки при решении задачи.
+ */
+fun revert(n: Int): Int {
+    var revertNum = 0
+    var auxNum = n
+    do {
+        revertNum = revertNum * 10 + auxNum % 10
+        auxNum /= 10
+    } while (auxNum > 0)
+    return revertNum
+}
 
 
-    /**
-     * Простая
-     *
-     * Для заданных чисел m и n, m <= n, определить, имеется ли хотя бы один точный квадрат между m и n,
-     * то есть, существует ли такое целое k, что m <= k*k <= n.
-     * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
-     */
-    fun squareBetweenExists(m: Int, n: Int): Boolean {
-        for (i in 0..sqrt(n.toDouble()).toInt())
-            if (sqr(i.toDouble()) <= n)
-                if (sqr(i.toDouble()) >= m) return true
+/**
+ * Средняя
+ *
+ * Проверить, является ли заданное число n палиндромом:
+ * первая цифра равна последней, вторая -- предпоследней и так далее.
+ * 15751 -- палиндром, 3653 -- нет.
+ */
+fun isPalindrome(n: Int): Boolean = n == revert(n)
+
+/**
+ * Средняя
+ *
+ * Для заданного числа n определить, содержит ли оно различающиеся цифры.
+ * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
+ */
+fun hasDifferentDigits(n: Int): Boolean {
+    var number = n
+    val number1 = number % 10
+    if (number < 10)
         return false
+    do {
+        number /= 10
+        if (number1 != number % 10)
+            return true
+    } while (number > 9)
+    return false
+}
+
+/**
+ * Сложная
+ *
+ * Найти n-ю цифру последовательности из квадратов целых чисел:
+ * 149162536496481100121144...
+ * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
+ */
+fun squareSequenceDigit(n: Int): Int {
+    var num0 = 1
+    var num1 = 1
+    var l = n
+    while (l > 0) {
+        num1 = num0 * num0
+        l -= digitNumber(num1)
+        num0++
     }
+    return num1 / pow(10.0, abs(l) * 1.0).toInt() % 10
+}
 
-    /**
-     * Средняя
-     *
-     * Для заданного x рассчитать с заданной точностью eps
-     * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
-     * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
-     */
-    fun sin(x: Double, eps: Double): Double = TODO()
 
-    /**
-     * Средняя
-     *
-     * Для заданного x рассчитать с заданной точностью eps
-     * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
-     * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
-     */
-    fun cos(x: Double, eps: Double): Double = TODO()
+/**
+ * Сложная
+ *
+ * Найти n-ю цифру последовательности из чисел Фибоначчи (см. функцию fib выше):
+ * 1123581321345589144...
+ * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
+ */
 
-    /**
-     * Средняя
-     *
-     * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
-     * Не использовать строки при решении задачи.
-     */
-    fun revert(n: Int): Int {
-        var revertNum = 0
-        var auxNum = n
-        do {
-            revertNum = revertNum * 10 + auxNum % 10
-            auxNum /= 10
-        } while (auxNum > 0)
-        return revertNum
+fun fibSequenceDigit(n: Int): Int {
+    var number1  = 1
+    var number2 = 1
+    var l = n
+    while (l > 0) {
+        number2 = fib(number1)
+        l -= digitNumber(number2)
+        number1++
     }
-
-
-    /**
-     * Средняя
-     *
-     * Проверить, является ли заданное число n палиндромом:
-     * первая цифра равна последней, вторая -- предпоследней и так далее.
-     * 15751 -- палиндром, 3653 -- нет.
-     */
-    fun isPalindrome(n: Int): Boolean = n == revert(n)
-
-    /**
-     * Средняя
-     *
-     * Для заданного числа n определить, содержит ли оно различающиеся цифры.
-     * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
-     */
-    fun hasDifferentDigits(n: Int): Boolean {
-        var number = n
-        val number1 = number % 10
-        if (number < 10)
-            return false
-        do {
-            number /= 10
-            if (number1 != number % 10)
-                return true
-        } while (number > 9)
-        return false
-    }
-
-    /**
-     * Сложная
-     *
-     * Найти n-ю цифру последовательности из квадратов целых чисел:
-     * 149162536496481100121144...
-     * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
-     */
-    fun squareSequenceDigit(n: Int): Int {
-        var Xara = 1
-        var Magic = 1
-        var l = n
-        while (l > 0) {
-            Magic = Xara * Xara
-            l -= digitNumber(Magic)
-            Xara++
-        }
-        return Magic / pow(10.0, abs(l) * 1.0).toInt() % 10
-    }
-
-
-    /**
-     * Сложная
-     *
-     * Найти n-ю цифру последовательности из чисел Фибоначчи (см. функцию fib выше):
-     * 1123581321345589144...
-     * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
-     */
-
-    fun fibSequenceDigit(n: Int): Int {
-        var First = 1
-        var second = 1
-        var l = n
-        while (l > 0) {
-            second = fib(First)
-            l -= digitNumber(second)
-            First++
-        }
-        return second / pow(10.0, abs(l) * 1.0).toInt() % 10
-    }
+    return number2 / pow(10.0, abs(l) * 1.0).toInt() % 10
+}
 
 
 
