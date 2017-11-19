@@ -66,7 +66,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var number = n
+    var number = abs(n)
     do {
         number /= 10
         count++
@@ -98,17 +98,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var n1 = n
-    var m1 = m
-    while (m1 != n1) {
-        if (m1 > n1) {
-            m1 -= n1
-        } else
-            n1 -= m1
-    }
-    return m * n / n1
-}
+fun lcm(m: Int, n: Int): Int = (m * n) / gcd(m, n)
 
 /**
  * Простая
@@ -161,7 +151,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in 0..round(n.toDouble()))
+    for (i in 0..round(n * 1.0))
         if (sqr(i.toDouble()) <= n)
             if (sqr(i.toDouble()) >= m) return true
     return false
@@ -238,15 +228,15 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var num0 = 1
-    var num1 = 1
+    var firstsequence  = 1
+    var secondsequence  = 1
     var l = n
     while (l > 0) {
-        num1 = num0 * num0
-        l -= digitNumber(num1)
-        num0++
+        secondsequence  = firstsequence * firstsequence
+        l -= digitNumber(secondsequence )
+        firstsequence++
     }
-    return num1 / pow(10.0, abs(l) * 1.0).toInt() % 10
+    return secondsequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
 }
 
 
@@ -259,15 +249,15 @@ fun squareSequenceDigit(n: Int): Int {
  */
 
 fun fibSequenceDigit(n: Int): Int {
-    var number1  = 1
-    var number2 = 1
-    var l = n
-    while (l > 0) {
-        number2 = fib(number1)
-        l -= digitNumber(number2)
-        number1++
+    var sequenceDigit = 1
+    var seqeunceDigit2 = 1
+    var remainlenght = n
+    while (remainlenght > 0) {
+        seqeunceDigit2 = fib( sequenceDigit )
+        remainlenght -= digitNumber( seqeunceDigit2)
+        sequenceDigit++
     }
-    return number2 / pow(10.0, abs(l) * 1.0).toInt() % 10
+    return  seqeunceDigit2 / pow(10.0, abs(remainlenght) * 1.0).toInt() % 10
 }
 
 

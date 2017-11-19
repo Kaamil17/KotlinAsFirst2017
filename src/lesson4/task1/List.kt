@@ -116,7 +116,7 @@ fun abs(v: List<Double>): Double {
     for (element in v) {
         x += pow(element, 2.0)
     }
-    return  sqrt(x.toDouble())
+    return sqrt(x.toDouble())
 }
 
 
@@ -128,8 +128,7 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     if (list.isEmpty()) return 0.0
     else {
-        val t = list.sum() / list.size
-        return t
+        return list.sum() / list.size
     }
 }
 
@@ -199,7 +198,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var divisors = mutableListOf<Int>()
+    val divisors = mutableListOf<Int>()
     var n1 = n
     while (n1 != 1) {
         val div = minDivisor(n1)
@@ -215,7 +214,7 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString ("*")
+fun factorizeToString(n: Int): String = factorize(n).joinToString("*")
 
 /**
  * Средняя
@@ -233,13 +232,13 @@ fun convert(n: Int, base: Int): List<Int> {
         remainNum /= base
     }
 
-    val s = mutableListOf<Int>()
-    var t = 1
-    while (t <= num.size) {
-        s.add(num[num.size - t])
-        t++
+    val newsys = mutableListOf<Int>()
+    var num2 = 1
+    while (num2 <= num.size) {
+        newsys.add(num[num.size - num2])
+        num2++
     }
-    return s
+    return newsys
 }
 
 

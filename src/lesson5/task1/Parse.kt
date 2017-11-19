@@ -74,13 +74,13 @@ fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
     if (parts.size != 3) return ""
     try {
-        val Day = parts[0].toInt()
+        val day = parts[0].toInt()
         val Year = parts[2].toInt()
-        val MonthesOftheYear = listOf("января", "февраля", "марта", "апреля",
+        val MonthesoftheYear = listOf("января", "февраля", "марта", "апреля",
                 "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
-        if ((Day in 1..31) && (parts[1] in MonthesOftheYear)) {
-            val Month = MonthesOftheYear.indexOf(parts[1]) + 1
-            return String.format("%02d.%02d.%02d", Day, Month, Year)
+        if ((day in 1..31) && (parts[1] in MonthesoftheYear)) {
+            val month = MonthesoftheYear.indexOf(parts[1]) + 1
+            return String.format("%02d.%02d.%02d", day, month, Year)
         } else return ""
     } catch (e: NumberFormatException) {
         return ""
@@ -151,24 +151,25 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    var x = -1
-    val  t: String
-    var u: Int
+    var number = -1
+    val symbol: String
+    var result: Int
     try {
         if (jumps.matches(Regex("[-% 0-9]"))) {
-            t = jumps.replace(Regex("[-%]"), "")
-            val y = t.split(" ").toMutableList()
+            symbol = jumps.replace(Regex("[-%]"), "")
+            val y = symbol.split(" ").toMutableList()
             y.remove("")
             for (element in y) {
-                u = element.toInt()
-                if (u > x) x = u
+                result = element.toInt()
+                if (result > number) number = result
             }
         }
     } catch (e: NumberFormatException) {
         return -1
     }
-    return x
+    return number
 }
+
 /**
  * Сложная
  *
@@ -192,19 +193,19 @@ fun bestHighJump(jumps: String): Int = TODO()
  */
 fun plusMinus(expression: String): Int {
     try {
-        val x = expression.split(" ")
-        var i = 0
-        var n = x[0].toInt()
-        while (i in 0..x.size - 3) {
-            if (x[i + 1] == "+") {
-                n += x[i + 2].toInt()
+        val exp = expression.split(" ")
+        var number = 0
+        var exp2 = exp[0].toInt()
+        while (number in 0..exp.size - 3) {
+            if (exp[number + 1] == "+") {
+                exp2 += exp[number + 2].toInt()
             }
-            if (x[i + 1] == "-") {
-                n -= x[i + 2].toInt()
+            if (exp[number + 1] == "-") {
+                exp2 -= exp[number + 2].toInt()
             }
-            i++
+            number++
         }
-        return n
+        return exp2
     } catch (e: NumberFormatException) {
         throw IllegalArgumentException()
     }
@@ -257,7 +258,7 @@ fun fromRoman(roman: String): Int = TODO()
  *	> - сдвиг датчика вправо на 1 ячейку;
  *  < - сдвиг датчика влево на 1 ячейку;
  *	+ - увеличение значения в ячейке под датчиком на 1 ед.;
-  *	- - уменьшение значения в ячейке под датчиком на 1 ед.;
+ *	- - уменьшение значения в ячейке под датчиком на 1 ед.;
  *	[ - если значение под датчиком равно 0, в качестве следующей команды следует воспринимать
  *  	не следующую по порядку, а идущую за соответствующей следующей командой ']' (с учётом вложенности);
  *	] - если значение под датчиком не равно 0, в качестве следующей команды следует воспринимать
