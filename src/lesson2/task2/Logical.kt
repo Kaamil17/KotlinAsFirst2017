@@ -35,7 +35,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
 
 /**
  * Средняя
- *
+ * 6.5
  * Проверить, лежит ли окружность с центром в (x1, y1) и радиусом r1 целиком внутри
  * окружности с центром в (x2, y2) и радиусом r2.
  * Вернуть true, если утверждение верно
@@ -57,9 +57,8 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  *
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if (a <= r && b <= s || a <= s && b <= r) return true
-    if (c <= r && b <= s || c <= s && b <= r) return true
-    if (c <= r && a <= s || c <= s && a <= r) return true
-    return false
+    return (a <= r && b <= s || a <= s && b <= r || c <= r && b <= s ||
+            c <= s && b <= r || c <= r && a <= s || c <= s && a <= r)
+
 }
 

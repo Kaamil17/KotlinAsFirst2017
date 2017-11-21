@@ -136,7 +136,7 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
- *
+ *'f'.toInt() 57.toChar() '0'..'1'
  * Определить, являются ли два заданных числа m и n взаимно простыми.
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
@@ -151,7 +151,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in 0..round(n * 1.0))
+    for (i in 0..n)
         if (sqr(i.toDouble()) <= n)
             if (sqr(i.toDouble()) >= m) return true
     return false
@@ -177,6 +177,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
+ * sqrt(7)
  *
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
