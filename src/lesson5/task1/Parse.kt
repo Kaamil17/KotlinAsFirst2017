@@ -180,7 +180,25 @@ fun bestLongJump(jumps: String): Int {
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    var maxHeight = 0
+    var count = 0
+    val parts = jumps.split(" ")
+    if (parts.size == 1) return -1
+    for (i in 0..parts.size - 1 step 2) {
+        val heightJumpFilter = Regex("""\d+(\+|\%|\-)+""")
+        if (!heightJumpFilter.matches(parts[i] + parts[i + 1])) return -1
+        if ('+' in parts[i + 1] && parts[i].toInt() >= maxHeight) {
+            maxHeight = parts[i].toInt()
+            count++
+        }
+    }
+    if (count > 0) {
+        return maxHeight
+    }
+    else
+        return -1
+}
 
 /**
  * Сложная
@@ -220,7 +238,21 @@ fun plusMinus(expression: String): Int {
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    var found: Boolean = false
+    var last: String = ""
+    var passed: Int = 0
+    for (w in Regex("[а-яА-Я]+").findAll(str)) {
+        if (w.groupValues[0].toLowerCase() == last) {
+            found = true
+            passed -= (w.groupValues[0].length+1)
+            break
+        }
+        passed+=w.groupValues[0].length+1
+        last = w.groupValues[0].toLowerCase()
+    }
+    return if (found) passed else -1
+}
 
 /**
  * Сложная
@@ -233,8 +265,16 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть положительными
  */
-fun mostExpensive(description: String): String = TODO()
-
+fun mostExpensive(description: String): String {
+    var most: String = ""
+    var value: Double = -1.0
+    if (description.matches(Regex("([а-яА-Я]+ [0-9]+.[0-9](;[ ])?)+"))) {
+        Regex("([а-яА-Я]+) ([0-9]+.[0-9]);?").findAll(description).forEach {
+            if(it.groupValues[2].toDouble() > value) { most = it.groupValues[1]; value = it.groupValues[2].toDouble() }
+        }
+    }
+    return most
+}
 /**
  * Сложная
  *
