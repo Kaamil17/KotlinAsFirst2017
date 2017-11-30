@@ -224,21 +224,15 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString("*")
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
+    if(n == 0) return listOf(0)
     val num = mutableListOf<Int>()
     var remainNum = n
     if (n == 0) return listOf(0)
     while (remainNum > 0) {
-        num.add(remainNum % base)
+        num.add(0, remainNum % base)
         remainNum /= base
     }
-
-    val newsys = mutableListOf<Int>()
-    var num2 = 1
-    while (num2 <= num.size) {
-        newsys.add(num[num.size - num2])
-        num2++
-    }
-    return newsys
+    return num
 }
 
 

@@ -106,7 +106,7 @@ fun lcm(m: Int, n: Int): Int = (m * n) / gcd(m, n)
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n.toShort())
+    for (i in 2..n)
         if (n % i == 0)
             return i
     return n
@@ -229,15 +229,15 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var firstsequence  = 1
-    var secondsequence  = 1
+    var FirstSequence  = 1
+    var SecondSequence  = 1
     var l = n
     while (l > 0) {
-        secondsequence  = firstsequence * firstsequence
-        l -= digitNumber(secondsequence )
-        firstsequence++
+        SecondSequence  = FirstSequence * FirstSequence
+        l -= digitNumber(SecondSequence )
+        FirstSequence++
     }
-    return secondsequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
+    return SecondSequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
 }
 
 
@@ -250,15 +250,15 @@ fun squareSequenceDigit(n: Int): Int {
  */
 
 fun fibSequenceDigit(n: Int): Int {
-    var sequenceDigit = 1
-    var seqeunceDigit2 = 1
-    var remainlenght = n
-    while (remainlenght > 0) {
-        seqeunceDigit2 = fib( sequenceDigit )
-        remainlenght -= digitNumber( seqeunceDigit2)
-        sequenceDigit++
+    var SequenceDigit = 1
+    var SeqeunceDigit2 = 1
+    var lenght = n
+    while (lenght > 0) {
+        SeqeunceDigit2 = fib( SequenceDigit )
+        lenght -= digitNumber( SeqeunceDigit2)
+        SequenceDigit++
     }
-    return  seqeunceDigit2 / pow(10.0, abs(remainlenght) * 1.0).toInt() % 10
+    return  SeqeunceDigit2 / pow(10.0, abs(lenght) * 1.0).toInt() % 10
 }
 
 
