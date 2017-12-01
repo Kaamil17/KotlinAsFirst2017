@@ -2,6 +2,9 @@
 
 package lesson6.task2
 
+import java.lang.Math.abs
+import java.lang.Math.max
+
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -155,7 +158,19 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    when (bishopMoveNumber(start, end)) {
+        -1 -> return listOf()
+        0 -> return listOf(start)
+        1 -> return listOf(start, end)
+    }
+    val column = (start.column + end.row - start.row + end.column) / 2
+    val row = end.row - (start.column + end.row - start.row - end.column) / 2
+    val averageSquare = if (row in 1..8 && column in 1..8) Square(column, row)
+    else Square(end.column - row + start.row, end.row - row + start.row)
+    return listOf(start, averageSquare, end)
+}
+
 
 /**
  * Средняя
@@ -177,7 +192,10 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int = TODO()
+fun kingMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw  IllegalArgumentException()
+    return max(abs(end.column - start.column), abs(end.row - start.row))
+}
 
 /**
  * Сложная
