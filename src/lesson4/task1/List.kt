@@ -154,7 +154,13 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var c = 0.0
+    for (i in 0 until a.size)
+        c += a[i] * b[i]
+    return c
+}
+
 
 /**
  * Средняя
@@ -293,7 +299,14 @@ fun decimalFromString(str: String, base: Int): Int {
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val firstNum = arrayOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val secondNum = arrayOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val thirdNum = arrayOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    var num = ""
+    for (i in 1..n / 1000) num += "M"
+    return num + thirdNum[n / 100 % 10] + secondNum[n / 10 % 10] + firstNum[n % 10]
+}
 
 /**
  * Очень сложная
@@ -302,6 +315,7 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
+
 
 fun russian(n: Int): String = TODO()
 
