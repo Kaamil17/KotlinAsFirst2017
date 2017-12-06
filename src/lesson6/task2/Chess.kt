@@ -126,18 +126,14 @@ fun rookTrajectory(start: Square, end: Square): List<Square> {
  * Примеры: bishopMoveNumber(Square(3, 1), Square(6, 3)) = -1; bishopMoveNumber(Square(3, 1), Square(3, 7)) = 2.
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
-fun bishopMoveNumber(start: Square, end: Square): Int {
-    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
-    else {
+fun bishopMoveNumber(start: Square, end: Square): Int = when {
+    !start.inside() || !end.inside() -> throw IllegalArgumentException()
+    (abs(start.row - start.column) % 2 != abs(end.row - end.column) % 2) -> -1
+    start == end -> 0
+    abs(start.row - end.row) == abs(start.column - end.column) -> 1
+    else -> 2
 
-        return when {
-            start == end -> 0
-            (start.column + start.row + end.column + end.row) % 2 == 1 -> -1
-            (start.column + start.row + end.column + end.row) % 2 == 0
-                    && Math.abs((start.column - end.column) / (start.row - end.row)) == 1 -> 1
-            else -> 2
-        }
-    }
+
 }
 
 /**
