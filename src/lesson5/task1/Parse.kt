@@ -129,20 +129,19 @@ fun dateDigitToStr(digital: String): String {
 
 
 fun flattenPhoneNumber(phone: String): String {
-    var Number = mutableListOf<String>()
-    if (phone[0] == '+') Number.add("+")
-    val signs = phone.split(" ", "-", "(", ")", "+", "")
-    val numbers = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "")
-    for (element in signs) {
-        if (element in numbers) Number.add(element)
-        else {
-            Number = mutableListOf("")
-            break
+    if (phone.isEmpty()) return ""
+    val legalChar = listOf('(', ')', '-', '+', ' ')
+    var ans = StringBuilder()
+    if (phone[0] == '+' && phone.length != 1) ans.append(phone[0])
+    for (char in phone) {
+        if (char !in legalChar && char !in '0'..'9') {
+            return ""
+        } else {
+            if (char in '0'..'9') ans.append(char)
         }
     }
-    return Number.joinToString(separator = "")
+    return ans.toString()
 }
-
 
 /**
  * Средняя

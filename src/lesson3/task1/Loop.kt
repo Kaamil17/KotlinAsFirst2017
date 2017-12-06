@@ -106,7 +106,7 @@ fun lcm(m: Int, n: Int): Int = (m * n) / gcd(m, n)
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n)
+    for (i in 2..n )
         if (n % i == 0)
             return i
     return n
@@ -150,12 +150,8 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in 0..n)
-        if (sqr(i.toDouble()) <= n)
-            if (sqr(i.toDouble()) >= m) return true
-    return false
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean =
+    Math.ceil(Math.sqrt(m.toDouble())) <= Math.floor(Math.sqrt(n.toDouble()))
 
 /**
  * Средняя
@@ -229,15 +225,15 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var FirstSequence  = 1
-    var SecondSequence  = 1
+    var Firstsequence  = 1
+    var Secondsequence  = 1
     var l = n
     while (l > 0) {
-        SecondSequence  = FirstSequence * FirstSequence
-        l -= digitNumber(SecondSequence )
-        FirstSequence++
+        Secondsequence  = Firstsequence * Firstsequence
+        l -= digitNumber(Secondsequence )
+        Firstsequence++
     }
-    return SecondSequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
+    return Secondsequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
 }
 
 
@@ -250,15 +246,15 @@ fun squareSequenceDigit(n: Int): Int {
  */
 
 fun fibSequenceDigit(n: Int): Int {
-    var SequenceDigit = 1
-    var SeqeunceDigit2 = 1
-    var lenght = n
-    while (lenght > 0) {
-        SeqeunceDigit2 = fib( SequenceDigit )
-        lenght -= digitNumber( SeqeunceDigit2)
-        SequenceDigit++
+    var Sequencedigit = 1
+    var Seqeuncedigit2 = 1
+    var length  = n
+    while (length > 0) {
+        Seqeuncedigit2 = fib( Sequencedigit )
+        length -= digitNumber( Seqeuncedigit2)
+        Sequencedigit++
     }
-    return  SeqeunceDigit2 / pow(10.0, abs(lenght) * 1.0).toInt() % 10
+    return  Seqeuncedigit2 / pow(10.0, abs(length) * 1.0).toInt() % 10
 }
 
 
