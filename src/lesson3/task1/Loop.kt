@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import lesson5.task1.bestHighJump
 import java.lang.StrictMath.*
 
 /**
@@ -106,7 +107,7 @@ fun lcm(m: Int, n: Int): Int = (m * n) / gcd(m, n)
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n )
+    for (i in 2..n / 2)
         if (n % i == 0)
             return i
     return n
@@ -151,7 +152,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean =
-    Math.ceil(Math.sqrt(m.toDouble())) <= Math.floor(Math.sqrt(n.toDouble()))
+        Math.ceil(Math.sqrt(m.toDouble())) <= Math.floor(Math.sqrt(n.toDouble()))
 
 /**
  * Средняя
@@ -194,7 +195,7 @@ fun revert(n: Int): Int {
  *
  * Проверить, является ли заданное число n палиндромом:
  * первая цифра равна последней, вторая -- предпоследней и так далее.
- * 15751 -- палиндром, 3653 -- нет.
+ * 15751 -- палиндром, 3653 -- нет.22q99
  */
 fun isPalindrome(n: Int): Boolean = n == revert(n)
 
@@ -225,15 +226,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var Firstsequence  = 1
-    var Secondsequence  = 1
-    var l = n
-    while (l > 0) {
-        Secondsequence  = Firstsequence * Firstsequence
-        l -= digitNumber(Secondsequence )
-        Firstsequence++
+    var i = 0
+    var number = 0
+    var result = 0
+    while (number < n) {
+        i++
+        number = number + digitNumber(i * i)
     }
-    return Secondsequence  / pow(10.0, abs(l) * 1.0).toInt() % 10
+    result = i * i
+    for (i in n..number - 1) {
+        result = result / 10
+    }
+    return (result % 10)
 }
 
 
@@ -248,17 +252,13 @@ fun squareSequenceDigit(n: Int): Int {
 fun fibSequenceDigit(n: Int): Int {
     var Sequencedigit = 1
     var Seqeuncedigit2 = 1
-    var length  = n
+    var length = n
     while (length > 0) {
-        Seqeuncedigit2 = fib( Sequencedigit )
-        length -= digitNumber( Seqeuncedigit2)
+        Seqeuncedigit2 = fib(Sequencedigit)
+        length -= digitNumber(Seqeuncedigit2)
         Sequencedigit++
     }
-    return  Seqeuncedigit2 / pow(10.0, abs(length) * 1.0).toInt() % 10
+    return Seqeuncedigit2 / pow(10.0, abs(length) * 1.0).toInt() % 10
 }
-
-
-
-
 
 

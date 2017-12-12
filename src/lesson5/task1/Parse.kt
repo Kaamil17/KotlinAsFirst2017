@@ -182,6 +182,7 @@ fun bestHighJump(jumps: String): Int {
     return results.max() ?: -1
 }
 
+
 /**
  * Сложная
  *
@@ -193,17 +194,14 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     try {
-        val exp = expression.split(" ")
-        var exp2 = exp[0].toInt()
-        for (number in 0..exp.size - 3) {
-            if (exp[number + 1] == "+") {
-                exp2 += exp[number + 2].toInt()
-            }
-            if (exp[number + 1] == "-") {
-                exp2 -= exp[number + 2].toInt()
-            }
+        val parts = expression.split(" ")
+        var ans = parts[0].toInt()
+        for (i in 1 until parts.size - 1 step 2) {
+            if (parts[i] == "+") ans += parts[i + 1].toInt()
+            else ans -= parts[i + 1].toInt()
         }
-        return exp2
+        return ans
+
     } catch (e: NumberFormatException) {
         throw IllegalArgumentException()
     }
@@ -238,16 +236,22 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    var most = ""
-    var value = -1.0
-    if (description.matches(Regex("([а-яА-Я]+ [0-9]+.[0-9](;[ ])?)+"))) {
-        Regex("([а-яА-Я]+) ([0-9]+.[0-9]);?").findAll(description).forEach {
-            if (it.groupValues[2].toDouble() > value) {
-                most = it.groupValues[1]; value = it.groupValues[2].toDouble()
-            }
+    try {
+        var name = mutableListOf<String>()
+        var price = mutableListOf<Double>()
+        val parts = description.split("; ")
+
+        for (i in 0 until parts.size) {
+            val tempParts = parts[i].split(" ")
+            name.add(tempParts[0])
+            if (tempParts[1].toDouble() < 0.0) return ""
+            else price.add(tempParts[1].toDouble())
         }
+        val maxPrice = price.indexOf(price.max())
+        return name[maxPrice]
+    } catch (e: Exception) {
+        return ""
     }
-    return most
 }
 
 /**
