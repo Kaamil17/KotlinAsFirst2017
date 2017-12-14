@@ -80,7 +80,8 @@ data class Circle(val center: Point, val radius: Double) {
      */
     fun distance(other: Circle): Double {
         return when {
-            center.distance(other.center) - radius - other.radius > 0 -> center.distance(other.center) - radius - other.radius
+            center.distance(other.center) - radius - other.radius > 0
+            -> center.distance(other.center) - radius - other.radius
             else -> 0.0
         }
     }
@@ -98,11 +99,14 @@ data class Circle(val center: Point, val radius: Double) {
  * Отрезок между двумя точками
  */
 data class Segment(val begin: Point, val end: Point) {
+    fun size(): Double = begin.distance(end)
     override fun equals(other: Any?) =
             other is Segment && (begin == other.begin && end == other.end || end == other.begin && begin == other.end)
 
     override fun hashCode() =
             begin.hashCode() + end.hashCode()
+
+
 }
 
 /**
@@ -112,25 +116,14 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment {
-    if (points.size < 2) throw IllegalAccessError()
-    var max = 0.0
-    var x: Double
-    var i = 0
-    var t: Int
-    var a = Segment(points[0], points[1])
-    while (i <= points.size - 2) {
-        t = i + 1
-        while (t <= points.size - 1) {
-            x = points[i].distance(points[t])
-            if (x >= max) {
-                max = x
-                a = Segment(points[i], points[t])
-            }
-            t++
-        }
-        i++
+    if (points.size < 2) throw IllegalArgumentException()
+    var max = Segment(points[0], points[1])
+    for (i in 0 until points.size) {
+        for (j in i + 1 until points.size)
+            if (points[i].distance(points[j]) > max.size())
+                max = Segment(points[i], points[j])
     }
-    return a
+    return max
 }
 
 /**

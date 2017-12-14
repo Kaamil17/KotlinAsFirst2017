@@ -25,14 +25,9 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String {
-        if (!inside()) return ""
-        else {
-            val a = listOf("a", "b", "c", "d", "e", "f", "g", "h")
-            val x = a[column - 1]
-            return "$x$row"
-        }
-    }
+    fun notation(): String = if (this.inside()) letters[column] + "$row" else ""
+
+    var letters = " abcdefgh"
 }
 
 /**
@@ -43,10 +38,9 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square {
-    val a = listOf("a", "b", "c", "d", "e", "f", "g", "h")
-    if (notation.length == 2 && notation[0].toString() in a && notation[1] in '1'..'8') {
-        return Square(a.indexOf(notation[0].toString()) + 1, (notation[1]).toInt() - 48)
-    } else throw IllegalArgumentException()
+    if (notation.length != 2 || notation[1] !in '1'..'8' || notation[0] !in 'a'..'h')
+        throw IllegalArgumentException()
+    return Square(notation[0] - 'a' + 1, (notation[1]) - '0')
 }
 
 
@@ -97,10 +91,16 @@ fun rookMoveNumber(start: Square, end: Square): Int {
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 fun rookTrajectory(start: Square, end: Square): List<Square> {
-    return when {(rookMoveNumber(start, end) == 0) -> listOf(start)
-        rookMoveNumber(start, end) == 1 -> listOf(start, end)
-        else -> listOf(start, Square(start.column, end.row), end)
+    var square = start
+    var squares = listOf(start)
+    while (square != end) {
+        if (square.column != end.column)
+            square = Square(end.column, square.row)
+        else
+            square = Square(square.column, end.row)
+        squares += square
     }
+    return squares
 }
 
 /**
