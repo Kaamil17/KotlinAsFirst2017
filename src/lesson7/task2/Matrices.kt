@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson7.task2
 
+import lesson7.task1.Cell
 import lesson7.task1.Matrix
 import lesson7.task1.createMatrix
 
@@ -60,7 +62,6 @@ operator fun Matrix<Int>.plus(other: Matrix<Int>): Matrix<Int> {
  *  9  8  7  6
  */
 fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
-
 /**
  * Сложная
  *
@@ -76,6 +77,7 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
  *  1  1  1  1  1  1
  */
 fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
+
 
 /**
  * Сложная
@@ -103,7 +105,14 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> = TODO()
  * 4 5 6      8 5 2
  * 7 8 9      9 6 3
  */
-fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
+fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
+    if (matrix.height != matrix.width) throw IllegalArgumentException("IllegalArgumentException")
+    val reserveMatrix = createMatrix(matrix.height, matrix.width, matrix[0, 0])
+    for (i in 0..matrix.height - 1)
+        for (j in 0..matrix.height - 1)
+            reserveMatrix[i, j] = matrix[matrix.height - j - 1, i]
+    return reserveMatrix
+}
 
 /**
  * Сложная
@@ -118,7 +127,27 @@ fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
  * 1 2 3
  * 3 1 2
  */
-fun isLatinSquare(matrix: Matrix<Int>): Boolean = TODO()
+fun isLatinSquare(matrix: Matrix<Int>): Boolean {
+    if (matrix.height != matrix.width) return false
+    val n = matrix.height
+    for (i in 0..n - 1)
+        for (j in 0..n - 1) if (matrix[i, j] !in 1..n) return false
+    for (i in 0..n - 1) {
+        val set = mutableSetOf<Int>()
+        for (j in 0..n - 1) {
+            if (matrix[i, j] in set) return false
+            set.add(matrix[i, j])
+        }
+    }
+    for (i in 0..n - 1) {
+        val set = mutableSetOf<Int>()
+        for (j in 0..n - 1) {
+            if (matrix[j, i] in set) return false
+            set.add(matrix[j, i])
+        }
+    }
+    return true
+}
 
 /**
  * Средняя
@@ -155,7 +184,6 @@ fun sumNeighbours(matrix: Matrix<Int>): Matrix<Int> = TODO()
  * 0 0 0 0
  */
 fun findHoles(matrix: Matrix<Int>): Holes = TODO()
-
 /**
  * Класс для описания местонахождения "дырок" в матрице
  */
@@ -176,7 +204,6 @@ data class Holes(val rows: List<Int>, val columns: List<Int>)
  * К примеру, центральный элемент 12 = 1 + 2 + 4 + 5, элемент в левом нижнем углу 12 = 1 + 4 + 7 и так далее.
  */
 fun sumSubMatrix(matrix: Matrix<Int>): Matrix<Int> = TODO()
-
 /**
  * Сложная
  *
@@ -205,7 +232,13 @@ fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> 
  * Инвертировать заданную матрицу.
  * При инвертировании знак каждого элемента матрицы следует заменить на обратный
  */
-operator fun Matrix<Int>.unaryMinus(): Matrix<Int> = TODO(this.toString())
+operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
+    val result = this
+    for (i in 0..result.height - 1)
+        for (j in 0..result.width - 1)
+            result[i, j] = -this[i, j]
+    return result
+}
 
 /**
  * Средняя
@@ -215,8 +248,7 @@ operator fun Matrix<Int>.unaryMinus(): Matrix<Int> = TODO(this.toString())
  * В противном случае бросить IllegalArgumentException.
  * Подробно про порядок умножения см. статью Википедии "Умножение матриц".
  */
-operator fun Matrix<Int>.times(other: Matrix<Int>): Matrix<Int> = TODO(this.toString())
-
+operator fun Matrix<Int>.times(other: Matrix<Int>): Matrix<Int> = TODO()
 /**
  * Сложная
  *
