@@ -97,7 +97,7 @@ fun dateStrToDigit(str: String): String {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateDigitToStr(digital: String): String {
-    val monthesOftheYear = listOf("января", "февраля", "марта", "апреля",
+    val monthesOfTheYear = listOf("января", "февраля", "марта", "апреля",
             "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val parts = digital.split(".")
     if (parts.size != 3) return ""
@@ -106,7 +106,7 @@ fun dateDigitToStr(digital: String): String {
         val Month = parts[1].toInt()
         val Year = parts[2].toInt()
         if ((Day in 1..31) && (Month in 1..12)) {
-            val month = monthesOftheYear[parts[1].toInt() - 1]
+            val month = monthesOfTheYear[parts[1].toInt() - 1]
             return String.format("%d %s %d", Day, month, Year)
         } else return ""
     } catch (e: NumberFormatException) {
@@ -235,6 +235,7 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть положительными
  */
+
 fun mostExpensive(description: String): String {
     try {
         var name = mutableListOf<String>()
@@ -265,7 +266,24 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+
+val decimalDigits = arrayOf(1, 5, 10, 50, 100, 500, 1000)
+val romansDigits = arrayOf('I', 'V', 'X', 'L', 'C', 'D', 'M')
+
+fun fromRoman(roman: String): Int {
+    if (roman.isEmpty()) return -1
+    var pastDigit = 0
+    var numberForOutput = 0
+    for (i in roman.length - 1 downTo 0) {
+        val romanIndex = romansDigits.indexOf(roman[i])
+        if (romanIndex < 0) return -1
+        val digitNew = decimalDigits[romanIndex]
+        if (digitNew >= pastDigit) numberForOutput += digitNew
+        else numberForOutput -= digitNew
+        pastDigit = digitNew
+    }
+    return numberForOutput
+}
 
 /**
  * Очень сложная

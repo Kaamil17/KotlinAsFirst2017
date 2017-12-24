@@ -116,7 +116,7 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment {
-    if (points.size < 2) throw IllegalArgumentException()
+    if (points.size < 2) throw IllegalArgumentException() as Throwable
     var max = Segment(points[0], points[1])
     for (i in 0 until points.size) {
         for (j in i + 1 until points.size)
@@ -192,13 +192,21 @@ fun lineByPoints(a: Point, b: Point): Line {
 /**
  * Сложная
  *
+ *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line = TODO()
+fun bisectorByPoints(a: Point, b: Point): Line {
+    val center = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+    val angel = lineByPoints(a, b).angle
+
+    return if (angel >= PI / 2) Line(center, angel - PI / 2)
+    else Line(center, angel + PI / 2)
+
+}
 
 /**
  * Средняя
- *
+ *0
  * Задан список из n окружностей на плоскости. Найти пару наименее удалённых из них.
  * Если в списке менее двух окружностей, бросить IllegalArgumentException
  */
@@ -231,4 +239,5 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * соединяющий две самые удалённые точки в данном множестве.
  */
 fun minContainingCircle(vararg points: Point): Circle = TODO()
+
 

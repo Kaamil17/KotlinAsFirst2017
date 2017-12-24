@@ -35,7 +35,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if (age %100 in 5..20) return "$age лет"
+    if (age % 100 in 5..20) return "$age лет"
     else if (age % 10 in 2..4) return "$age года"
     else if (age % 10 == 1) return "$age год"
     else return "$age лет"
@@ -52,12 +52,12 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val s0 = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
-    val s1 = t1 * v1
-    val s2 = t2 * v2
-    if (s0 < s1) return s0 / v1
-    else if (s0 in s1..(s1 + s2)) return t1 + (s0 - s1) / v2
-    else return t1 + t2 + (s0 - s1 - s2) / v3
+    val s1 = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
+    val s2 = t1 * v1
+    val s3 = t2 * v2
+    if (s1 < s2) return s1 / v1
+    else if (s1 in s2..(s2 + s3)) return t1 + (s1 - s2) / v2
+    else return t1 + t2 + (s1 - s2 - s3) / v3
 }
 
 /**
@@ -73,16 +73,16 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
 
-    val threatsFromRook = (kingX == rookX1) || (kingY == rookY1)
-    val threatsFromRook1 = (kingX == rookX2) || (kingY == rookY2)
+    val rooksThreat = (kingX == rookX1) || (kingY == rookY1)
+    val rookThreats1 = (kingX == rookX2) || (kingY == rookY2)
 
-    return if (!threatsFromRook && !threatsFromRook1) 0
-    else if (threatsFromRook &&!threatsFromRook1) 1
-    else if (!threatsFromRook && threatsFromRook1) 2
+    return if (rooksThreat && !rookThreats1) 1
+    else if (!rooksThreat && !rookThreats1) 0
+    else if (!rooksThreat && rookThreats1) 2
     else 3
 }
 /**
- * AND HERE THERE IS A PROBLEME TO SOLVE.
+ *
  *
  */
 
