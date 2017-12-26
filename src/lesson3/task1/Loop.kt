@@ -256,7 +256,7 @@ fun squareSequenceDigit(n: Int): Int {
         l -= digitNumber(secondSequence)
         firstSequence++
     }
-    return secondSequence / pow(10.0, abs(l) * 1.0).toInt() % 10
+    return secondSequence / pow(10.0, (abs(l) * 1).toDouble()).toInt() % 10
 }
 
 
@@ -277,7 +277,6 @@ fun fibSequenceDigit(n: Int): Int {
         length -= digitNumber(seqeunceDigit2)
         sequenceDigit++
     }
-    return seqeunceDigit2 / pow(10.0, abs(length) * 1.0).toInt() % 10
+    return seqeunceDigit2 / pow(10.0, (abs(length) * 1).toDouble()).toInt() % 10
+
 }
-
-
