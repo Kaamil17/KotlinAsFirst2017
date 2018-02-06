@@ -235,14 +235,28 @@ fun sumSubMatrix(matrix: Matrix<Int>): Matrix<Int> {
  * Вернуть тройку (Triple) -- (да/нет, требуемый сдвиг по высоте, требуемый сдвиг по ширине).
  * Если наложение невозможно, то первый элемент тройки "нет" и сдвиги могут быть любыми.
  */
-fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> = TODO()
-
+fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> {
+    for (rowShift in 0..lock.height - key.height)
+        for (columnShift in 0..lock.width - key.width)
+            for (row in rowShift until rowShift + key.height) {
+                var breakCycle = false
+                for (column in columnShift until columnShift + key.width)
+                    if (lock[row, column] == key[row - rowShift, column - columnShift]) {
+                        breakCycle = true
+                        break
+                    } else if (column == columnShift + key.width - 1 && row == rowShift + key.height - 1)
+                        return Triple(true, rowShift, columnShift)
+                if (breakCycle) break
+            }
+    return Triple(false, 0, 0)
+}
 /**
  * Простая
  *
  * Инвертировать заданную матрицу.
  * При инвертировании знак каждого элемента матрицы следует заменить на обратный
  */
+
 operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
     val result = this
     for (i in 0..result.height - 1)
