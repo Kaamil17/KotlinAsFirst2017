@@ -311,4 +311,49 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var firstNumbers = arrayOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    var secondNumbers = arrayOf("", "десять", "двадцать", "тридцать", "сорок",
+            "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    var thirdNumbers = arrayOf("", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+            "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    var fouthNumbers = arrayOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот",
+            "семьсот", "восемьсот", "девятьсот")
+    var final = mutableListOf<String>()
+
+    var lastNumber = n % 10
+
+    var firstNumber = when (lastNumber) {
+        1 -> "один"
+        2 -> "два"
+        else -> firstNumbers[lastNumber]
+    }
+
+    var thirdNumber = when (n / 1000 % 10) {
+        1 -> "тысяча"
+        in 2..4 -> "тысячи"
+        else -> "тысяч"
+    }
+
+    if (n > 999) {
+        final.add(fouthNumbers[n / 100000 % 10])
+        if (n / 1000 % 100 in 11..19) {
+            final.add(thirdNumbers[n / 1000 % 10])
+            final.add("тысяч")
+        } else {
+            final.add(secondNumbers[n / 10000 % 10])
+            final.add(firstNumbers[n / 1000 % 10])
+            final.add(thirdNumber)
+        }
+    }
+    final.add(fouthNumbers[n / 100 % 10])
+    if (n % 100 in 11..19)
+        final.add(thirdNumbers[lastNumber])
+    else {
+        final.add(secondNumbers[n / 10 % 10])
+        final.add(firstNumber)
+    }
+    return final.filter { it != "" }.joinToString(" ")
+
+
+}
