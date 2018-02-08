@@ -121,8 +121,18 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var maximum = 0;
+    var lines = File(inputName).readLines().map { it.trim() }
+    for (line in lines) if (line.length >= maximum) maximum = line.length
+    var writer = File(outputName).bufferedWriter()
+    for (i in 0..lines.size - 1) {
+        for (j in 1..(maximum - lines[i].length) / 2) writer.write(" ")
+        writer.write(lines[i])
+        if (i != lines.size - 1) writer.newLine()
+    }
+    writer.close()
 }
+
 
 /**
  * Сложная
@@ -169,7 +179,17 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    var check: Int
+    var words = Regex("""[a-zа-яё]+""")
+            .findAll(File(inputName).readText().toLowerCase())
+    var result = mutableMapOf<String, Int>()
+    for (word in words) {
+        check = words.count { word.value == it.value }
+        result.put(word.value, check)
+    }
+    return result.toList().sortedByDescending { it.second }.take(20).toMap()
+}
 
 /**
  * Средняя
