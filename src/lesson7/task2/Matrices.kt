@@ -5,6 +5,7 @@ package lesson7.task2
 import lesson7.task1.Cell
 import lesson7.task1.Matrix
 import lesson7.task1.createMatrix
+import java.lang.Integer.min
 
 // Все задачи в этом файле требуют наличия реализации интерфейса "Матрица" в Matrix.kt
 
@@ -77,8 +78,15 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
  *  1  2  2  2  2  1
  *  1  1  1  1  1  1
  */
-fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
-
+fun generateRectangles(height: Int, width: Int): Matrix<Int> {
+    val rectanglesMatrix = createMatrix(height, width, 0)
+    val maxNumber = (min(width, height) - 1) / 2 + 1
+    for (i in 1..maxNumber)
+        for (rowID in 0 + i - 1 until height - i + 1)
+            for (columnID in 0 + i - 1 until width - i + 1)
+                rectanglesMatrix[rowID, columnID] += 1
+    return rectanglesMatrix
+}
 
 /**
  * Сложная
