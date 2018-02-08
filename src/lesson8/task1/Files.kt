@@ -180,17 +180,43 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  *
  */
 fun top20Words(inputName: String): Map<String, Int> {
-    var check: Int
-    var words = Regex("""[a-zа-яё]+""")
-            .findAll(File(inputName).readText().toLowerCase())
-    var result = mutableMapOf<String, Int>()
-    for (word in words) {
-        check = words.count { word.value == it.value }
-        result.put(word.value, check)
+    var text = File(inputName).readText()
+    text = text.toLowerCase()
+    val wordsAmount = mutableMapOf<String, Int>()
+    while (text.isNotEmpty()) {
+        val word = StringBuilder()
+        var letterID = 0
+        while (text.isNotEmpty()) {
+            if (text[letterID] in 'a'..'z' || text[letterID] in 'а'..'я' || text[letterID] == 'ё') {
+                word.append(text[letterID])
+                letterID++
+            } else {
+                if (word.isNotEmpty()) {
+                    val wordsAMT = wordsAmount[word.toString()] ?: 0
+                    wordsAmount[word.toString()] = 1 + wordsAMT
+                }
+                text = text.substring(word.length + 1)
+                break
+            }
+        }
     }
-    return result.toList().sortedByDescending { it.second }.take(20).toMap()
+    val top20WordAmount = mutableMapOf<String, Int>()
+    for (i in 1..20) {
+        var bestWordFrequency = 0
+        var bestWord = ""
+        for ((word, wordAmount) in wordsAmount) {
+            if (wordAmount > bestWordFrequency) {
+                bestWord = word
+                bestWordFrequency = wordAmount
+            }
+        }
+        if (bestWord.isNotEmpty()) {
+            top20WordAmount[bestWord] = bestWordFrequency
+            wordsAmount.remove(bestWord)
+        }
+    }
+    return top20WordAmount
 }
-
 /**
  * Средняя
  *
